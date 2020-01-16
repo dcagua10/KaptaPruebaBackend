@@ -2,7 +2,7 @@
 ## Descripcion
 Se desarrollo una aplicacion que se conecta al API de Freedcamp con la finalidad de obtener informacion y hacer su gestion en una base de datos
 
-# Instalation
+# Instalacion
 Para realizar la instalacion de la aplicacion es necesario realizar los siguientes pasos:
 
 -Instalar NodeJS con ReactJS
@@ -10,7 +10,7 @@ Para realizar la instalacion de la aplicacion es necesario realizar los siguient
 Opcional: MongoDB Compass (Permite la gestion de la base de datos de una forma mas sencilla)
 -Instalar Meteor (Recomendacion: Usar el instalador de Chocolatey)
 
-## Deployment
+## Depliegue de la aplicacion
 Para realizar el despliegue de la aplicacion es necesario realizar los siguientes pasos:
 
 ## Descarga del proyecto
