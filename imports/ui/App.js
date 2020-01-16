@@ -93,8 +93,7 @@ class App extends Component {
     addEmpresas(projectIdList,anotherCallback)
     {
       console.log("Test Get Tasks by Project ID: ",Services.getTasksByProjectId("2582841","1753169","1753169"))
-      console.log("Esto me dio el callback: ",projectIdList);
-      
+      console.log("Esto me dio el callback: ",projectIdList); 
       projectIdList.forEach(id => {
         var tasks = Services.getTasksByProjectId(id,userId,userId)
           .then((response) => response.json())
