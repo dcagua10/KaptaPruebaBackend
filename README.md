@@ -6,8 +6,11 @@ Se desarrollo una aplicacion que se conecta al API de Freedcamp con la finalidad
 Para realizar la instalacion de la aplicacion es necesario realizar los siguientes pasos:
 
 -Instalar NodeJS con ReactJS
+
 -Instalar MongoDB (MongoDB Community Server)
+
 Opcional: MongoDB Compass (Permite la gestion de la base de datos de una forma mas sencilla)
+
 -Instalar Meteor (Recomendacion: Usar el instalador de Chocolatey)
 
 ## Depliegue de la aplicacion
@@ -43,11 +46,11 @@ NOTA: No es necesario incluir los campos de TOKEN y COOKIE
 
 ```cd [Root]/KaptaPruebaBackend```
 
-Seguido de esto inicializar el comando de instalacion de dependencias de Meteor y ejecucion del mismo
+-Seguido de esto inicializar el comando de instalacion de dependencias de Meteor y ejecucion del mismo
 * ```meteor npm install```
 * ```meteor```
 
-Para inicializar el servidor en MongoDB es necesario abrir una segunda consola con el comando adicional:
+-Para inicializar el servidor en MongoDB es necesario abrir una segunda consola con el comando adicional:
 * ```cd [Root]/KaptaPruebaBackend```
 * ```meteor mongo```
 
