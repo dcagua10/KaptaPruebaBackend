@@ -20,8 +20,7 @@ var projectDescription = [];
 var userId;
 
 var servicioName=[];
-var tareas=[];
-
+var tareasList=[];
 
 class App extends Component {
     
@@ -37,27 +36,6 @@ class App extends Component {
       //Guarda la información de los Request en variables
       this.getAllEmpresas(this.addEmpresas)
 
-      //Crea una estructura de empresa
-      /*var j;
-      var k;
-      var mercados=[];
-      var servicios=[];
-      var tareas=[];
-      
-
-      for(j=0;j<projectId;j++){
-        let empresa =
-        {
-          project_id: projectId[j],
-          project_name: projectName[j],
-          user_id: userId,
-          mercado: []
-        }
-      }*/
-     
-      //Agrega el archivo a la base de datos
-      //Meteor.call("empresas.add",empresa)
-      
       /*Testing de Metodos*/
       /*console.log(Services.getProjects())
       console.log("--------------")
@@ -81,61 +59,69 @@ class App extends Component {
               projectDescription.push(res.project_description)
               userId=res.users[0]
             });
-          })
+          }).then(res=>{callback(projectId,this.processInformation)})
           .catch((error) =>{
             console.error(error);
           });
-          
-          console.log("Llega esto: ",projectId)
-          callback(projectId,this.processInformation)
     }
 
     addEmpresas(projectIdList,anotherCallback)
     {
-      console.log("Test Get Tasks by Project ID: ",Services.getTasksByProjectId("2582841","1753169","1753169"))
       console.log("Esto me dio el callback: ",projectIdList); 
+      //console.log(anotherCallback)
+      //console.log("Test Get Tasks by Project ID: ",Services.getTasksByProjectId("2582841","1753169","1753169"))
+
       projectIdList.forEach(id => {
         var tasks = Services.getTasksByProjectId(id,userId,userId)
           .then((response) => response.json())
           .then((responseJson) => {
-            this.fResponse = responseJson.data.tasks
-            console.log("Respuesta Task ID Project: ",this.fResponse)
-            this.fResponse.forEach(res => {
+            var localResponse;
+            localResponse = responseJson.data.tasks
+            console.log("Respuesta Task ID Project: ",localResponse)
+            localResponse.forEach(res => {
               //Sacar info goes here
               servicioName.push(res.title)
-              tareas.push(res.description)          
+              tareasList.push(res.description)
+              console.log("ADD TAREA: ", res.description) 
+              console.log("TareasListState: ",tareasList)         
             });
+          }).then(res=>{
+            console.log("PI: ",servicioName,"-".tareasList)
+            console.log("inicia el otro callback")
+            anotherCallback(servicioName,tareasList)
+            
           })
           .catch((error) =>{
             console.error(error);
           });
-
-          console.log("inicia el otro callback")
-          anotherCallback(servicioName,tareas)
+         
       })
     }
 
     processInformation(serviciosList, tareasList)
     {
-      console.log("PI: ",serviciosList,"-".tareasList)
+      console.log("Entro a process!")
       var i;
-      for(i=0; i<projectId; i++)
+      console.log("ParametersProcess: ",serviciosList,"-".tareasList)
+      for(i=0; i<projectId.length; i++)
       {
-        let tareas = tareasList[i];
-        let servicios = {
+        var tareas = tareasList[i];
+        var servicios = {
           servicio_name: serviciosList[i],
           tareas_list: tareas
         }
-        let mercados = {
+        var mercados = {
           mercado_name: projectDescription[i],
           servicios_list: servicios
         }
-        let empresa =
+        var empresa =
         {
-          project_id: projectId[j],
-          project_name: projectName[j],
+          project_id: projectId[i],
+          project_name: projectName[i],
           mercados_list: mercados,
         }
+
+        console.log("Empresa:",empresa)
         //Agrega el archivo a la base de datos
         //Meteor.call("empresas.add",empresa)
       }

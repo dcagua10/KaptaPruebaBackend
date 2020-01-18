@@ -134,11 +134,11 @@ exports.getTasksByProjectId = function (projectId, assignedId, createdById) {
           "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS"
       }
     })
-      .then((response) => response.json())
+      /*.then((response) => response.json())
       .then((responseJson) => {
         this.fResponse = responseJson.data.tasks
         console.log("Task by ProjectID Test: ",this.fResponse) 
-      })
+      })*/
       .catch((error) =>{
         console.error(error);
       });
