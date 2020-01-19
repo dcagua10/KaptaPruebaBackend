@@ -45,6 +45,8 @@ var listaServiciosDisponibles=[];
 var listaGenObjServicios=[];
 var listaMercadosDisponibles=[];
 var listaGenObjMercados=[];
+var listaEmpresasDisponibles=[];
+var listaGenObjEmpresas=[];
 
 
 class App extends Component {
@@ -81,10 +83,27 @@ class App extends Component {
             this.fResponse = responseJson.data.projects
             console.log("Respuesta Projects: ",this.fResponse)
             this.fResponse.forEach(res => {
-              projectId.push(res.project_id)
-              projectName.push(res.project_name)
-              projectDescription.push(res.project_description)
-              userId=res.users[0]
+              var pId=res.project_id;
+              var pName=res.project_name;
+              var pDMarkets=res.project_description;
+              var pUser = res.users[0];
+              
+              projectId.push(pId)
+              projectName.push(pName)
+              projectDescription.push(pDMarkets)
+              userId=pUser
+
+              var booleanListEmpresas;  
+
+              booleanListEmpresas = listaEmpresasDisponibles.includes(pName);
+              //console.log("Bool State: ", booleanListEmpresas)
+              if(booleanListEmpresas==false)
+              {
+                listaEmpresasDisponibles.push(pName);
+                empresaObject=structInfo.createEmpresa(pId,pName,pUser)
+                listaGenObjEmpresas.push(empresaObject)   
+              }
+
             });
           }).then(res=>{callback(projectId,this.createMarkets)})
           .catch((error) =>{
@@ -188,7 +207,7 @@ class App extends Component {
           }).then(res=>{
             //console.log("PI: ",listaGenObjServicios)
             //console.log("inicia el otro callback")
-            anotherCallback(projectIdList,listaGenObjServicios, structInfo.addMarketServices)
+            anotherCallback(projectIdList,listaGenObjServicios, structInfo.addMarketServices, structInfo.addEnterpriseMarkets)
             
           })
           .catch((error) =>{
@@ -198,7 +217,7 @@ class App extends Component {
       })
     }
 
-    createMarkets(projectIdList, listaGeneralServicios, callback)
+    createMarkets(projectIdList, listaGeneralServicios, callback, callback2)
     {
       console.log("createMarkets")
       projectIdList.forEach(id => {
@@ -227,14 +246,17 @@ class App extends Component {
             });
           }).then(res=>{
             //Añadir los servicios a los mercados
-            console.log("ListaGenServicios: ",listaGeneralServicios)
-            console.log("ListaGenMercados: ",listaGenObjMercados)
+            //console.log("ListaGenServicios: ",listaGeneralServicios)
+            //console.log("ListaGenMercados: ",listaGenObjMercados)
 
             var listaGS = listaGeneralServicios;
             var listaGM = listaGenObjMercados;
+            var listaPM;
 
             var pListaGM=callback(listaGS,listaGM)
-            listaGenObjMercados=pListaGM       
+            listaGenObjMercados=pListaGM
+            callback2(listaGenObjEmpresas, listaGenObjMercados)
+
           })
           .catch((error) =>{
             console.error(error);
@@ -242,29 +264,6 @@ class App extends Component {
          
       })
     }
-    
-    addMarketServices(){
-      console.log("Socio")
-    }
-      /*var i,j;
-      var nuevaListaMercados;
-      for (i=0; i<listaGenObjMercados.length; i++)
-      {
-        var actualMercado = listaGenObjMercados[i];
-        for(j=0; j<listaGenObjServicios.length; i++)
-        {
-          var actualServicio = listaGenObjServicios[j];
-          var actualMercadoPID = actualMercado.proyecto_id;
-          var actualServicioPID = actualServicio.proyecto_id
-          
-
-        }
-      }
-
-      //console.log("inicia el otro callback")
-      //anotherCallback(listaGenObjServicios)
-    }*/
-
 
     render(){
         return (

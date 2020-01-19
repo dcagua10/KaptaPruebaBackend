@@ -38,10 +38,23 @@ exports.createMercado = function (localProyectoId,localMercadoName)
     return nuevoMercado;
 }
 
+exports.createEmpresa = function (localProyectoId, localProyectoName, localUserId)
+{
+  var nuevaEmpresa = 
+  {
+    proyecto_id: localProyectoId,
+    proyecto_nombre: localProyectoName,
+    user_id: localUserId,
+    mercado_list: [] 
+  }
+  console.log("nueva empresa: ", nuevaEmpresa)
+  return nuevaEmpresa;
+}
+
 exports.addMarketServices = function (listaGenObjServicios,listaGenObjMercados)
 {
-      console.log("P1: ", listaGenObjServicios)
-      console.log("P2: ", listaGenObjMercados)
+      //console.log("P1: ", listaGenObjServicios)
+      //console.log("P2: ", listaGenObjMercados)
 
       var i,j;
       //var serviciosListMercadoAct = [];
@@ -64,8 +77,8 @@ exports.addMarketServices = function (listaGenObjServicios,listaGenObjMercados)
 
           if(actualServicioPID===actualMercadoPID)
           {
-            console.log("son iguales")
-            console.log(i,"-",j,"-",actualMercado,"-",actualServicio)
+            //console.log("son iguales")
+            //console.log(i,"-",j,"-",actualMercado,"-",actualServicio)
             var mercadoActualAdd = actualMercado.servicio_list;
             mercadoActualAdd.push(actualServicio)
             nuevaListaMercados=copiaListaMercados
@@ -75,4 +88,40 @@ exports.addMarketServices = function (listaGenObjServicios,listaGenObjMercados)
       console.log("LM: ",nuevaListaMercados)
       return nuevaListaMercados;
 }
+
+exports.addEnterpriseMarkets = function (listaGenObjEmpresas, listaGenObjMercados)
+{
+  var copyEmpresas=listaGenObjEmpresas;
+  var copyMercados=listaGenObjMercados;
+  var mercadoActualAdd;
+  var nuevaListaEmpresas=[];
+
+      for (i=0; i<copyEmpresas.length; i++)
+      {
+        var actualEmpresa = copyEmpresas[i];
+        var actualEmpresaPID = actualEmpresa.proyecto_id;
+
+        for(j=0; j<copyMercados.length; j++)
+        {
+          var actualMercado = copyMercados[j];
+          var actualMercadoPID = actualMercado.proyecto_id
+
+          if(actualEmpresaPID===actualMercadoPID)
+          {
+            /*var mercadoActualAdd = actualMercado.servicio_list;
+            mercadoActualAdd.push(actualServicio)
+            nuevaListaMercados=copiaListaMercados*/
+            var empresaActualAdd = actualEmpresa.mercado_list;
+            empresaActualAdd.push(actualMercado)
+            nuevaListaEmpresas=copyEmpresas
+          }
+        }
+      }
+      console.log("LE: ",nuevaListaEmpresas)
+      return nuevaListaEmpresas;
+}
+
+
+
+
 
