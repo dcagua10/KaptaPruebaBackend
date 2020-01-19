@@ -1,6 +1,7 @@
 import {Meteor} from "meteor/meteor"
 
 //Declaracion de Variables
+var tareasArray=[];
 
 //Metodos de creacion de estructuras
 exports.createServicio = function (localProyectoId,localMercadoIdName,localServicioName,pTareas)
@@ -15,18 +16,36 @@ exports.createServicio = function (localProyectoId,localMercadoIdName,localServi
     
     var i;
 
-    var tareasArray = pTareas.split(",")
+    var tareasCopy = pTareas;
+    tareasArray = tareasCopy.split(",");
     //Print que contiene la lista de tareas
-    //console.log("arrayT: ",tareasArray)
+    console.log("arrayT: ",tareasArray)
 
-    for (i=0; i<tareasArray.lenght-1; i++)
+    var j = 0;
+    tareasArray.forEach(element => {
+      //console.log(tareasArray.lenght)
+      console.log("E: ",element)
+      if(j!==0 && j!==tareasArray.lenght-1)
+      {
+        var lt = nuevoServicio.listaTareas;
+        lt.push(element)
+        nuevoServicio.listaTareas=lt
+      }
+      j++
+    });
+
+    /*for (i=0; i<tareasArray.lenght; i++)
     {
-        if(i!==0 && i!==tareasArray.lenght)
+        console.log("TAI: ", tareasArray[i])
+        if(i!==0 && i!==tareasArray.lenght-1)
         {
-           nuevoServicio.listaTareas.push(tareasArray[i])
+           var lt=nuevoServicio.listaTareas;
+           lt.push(tareasArray[i])
+           nuevoServicio.listaTareas = lt;
+           //nuevoServicio.listaTareas.push(tareasArray[i])
         }
-    }
-    //console.log("ServicioCreado", nuevoServicio)
+    }*/
+    console.log("ServicioCreado", nuevoServicio)
     return nuevoServicio;
 }
 exports.createMercado = function (localProyectoId,localMercadoName)
@@ -49,7 +68,7 @@ exports.createEmpresa = function (localProyectoId, localProyectoName, localUserI
     user_id: localUserId,
     mercado_list: [] 
   }
-  console.log("nueva empresa: ", nuevaEmpresa)
+  //console.log("nueva empresa: ", nuevaEmpresa)
   return nuevaEmpresa;
 }
 
@@ -95,7 +114,7 @@ exports.addMarketServices = function (listaGenObjServicios,listaGenObjMercados)
           }
         }
       }
-      console.log("LM: ",nuevaListaMercados)
+      //console.log("LM: ",nuevaListaMercados)
       return nuevaListaMercados;
 }
 
@@ -131,7 +150,7 @@ exports.addEnterpriseMarkets = function (listaGenObjEmpresas, listaGenObjMercado
           }
         }
       }
-      console.log("LE: ",nuevaListaEmpresas)
+      //console.log("LE: ",nuevaListaEmpresas)
       return nuevaListaEmpresas;
 }
 
@@ -139,13 +158,25 @@ exports.addEnterpriseDB = function (listaEmpresas)
 {
   var copyE = listaEmpresas;
   var k=0;
-  console.log("CE: ",copyE[0])
+  //console.log("CE: ",copyE)
+  copyE.forEach(e)
   for(k=0;k<copyE.lenght;k++)
   {
     var eAct = copyE[k];
     console.log("eA: ",eAct)
     Meteor.call("empresas.add",eAct)
   }
+}
+
+exports.addEnterpriseDB = function (listaEmpresas)
+{
+  var copyE = listaEmpresas;
+  //console.log("CE: ",copyE)
+  copyE.forEach(element => {
+      console.log("CE: ",element)
+      Meteor.call("empresas.add",element)
+    });
+
 }
 
 
