@@ -43,6 +43,8 @@ var empresaProyect;
 //Listas Generales
 var listaServiciosDisponibles=[];
 var listaGenObjServicios=[];
+var listaMercadosDisponibles=[];
+var listaGenObjMercados=[];
 
 
 class App extends Component {
@@ -192,7 +194,7 @@ class App extends Component {
           }).then(res=>{
             console.log("PI: ",listaGenObjServicios)
             //console.log("inicia el otro callback")
-            anotherCallback(listaGenObjServicios)
+            anotherCallback(projectIdList, listaGenObjServicios)
             
           })
           .catch((error) =>{
@@ -202,8 +204,42 @@ class App extends Component {
       })
     }
 
-    createMarkets(identificadorMercado,serviciosList, tareasList)
+    createMarkets(projectIdList, listaGeneralServicios)
     {
+      projectIdList.forEach(id => {
+        var tasks = Services.getTasksByProjectId(id,userId,userId)
+          .then((response) => response.json())
+          .then((responseJson) => {
+            var localResponse;
+            localResponse = responseJson.data.tasks
+            console.log("TASK For Markets: ",localResponse)
+            localResponse.forEach(res => {
+              console.log("mercadoName: ",res.task_group_name,"-","servicioName: ",res.title,"-","tareas: ",res.description)
+              var localProyectoId = res.project_id;
+              var localMercadoName = res.task_group_name;
+              
+              var booleanListMercados;  
+
+              booleanListMercados = listaMercadosDisponibles.includes(localMercadoName);
+              if(booleanListMercados==false)
+              {
+                listaMercadosDisponibles.push(localMercadoName);
+                mercadoObject=structInfo.createMercado(localProyectoId,localMercadoName)
+
+              }
+                listaGenObjMercados.push(mercadoObject)              
+            });
+          }).then(res=>{
+            console.log("ListaGenMercados: ",listaGenObjMercados)
+            //console.log("inicia el otro callback")
+            //anotherCallback(listaGenObjServicios)
+            
+          })
+          .catch((error) =>{
+            console.error(error);
+          });
+         
+      })
       /*//console.log("Entro al procesamiento!")
       var i;
       //console.log("ParametersProcess: ",serviciosList,"-".tareasList)

@@ -19,14 +19,22 @@ exports.createServicio = function (localProyectoId,localMercadoIdName,localServi
 
     for (i=1; i<tareasArray.lenght-1; i++)
     {
-        console.log(this.nuevoServicio)
-        console.log(this.nuevoServicio.listaTareas)
-        console.log(tareasArray[i])
-        /*if(i!==0 && i!==tareasArray.lenght)
+        if(i!==0 && i!==tareasArray.lenght)
         {
-           
-        }*/
+           nuevoServicio.listaTareas.push(tareasArray[i])
+        }
     }
-    console.log("ServicioCreado", nuevoServicio)
+    //console.log("ServicioCreado", nuevoServicio)
     return nuevoServicio;
 }
+exports.createMercado = function (localProyectoId,localMercadoName)
+{
+    var nuevoMercado =
+    {
+        proyecto_id: localProyectoId,
+        mercado_name: localMercadoName,
+        servicio_list: []
+    }
+}
+
+
