@@ -1,3 +1,4 @@
+import {Meteor} from "meteor/meteor"
 
 //Declaracion de Variables
 
@@ -18,7 +19,7 @@ exports.createServicio = function (localProyectoId,localMercadoIdName,localServi
     //Print que contiene la lista de tareas
     //console.log("arrayT: ",tareasArray)
 
-    for (i=1; i<tareasArray.lenght-1; i++)
+    for (i=0; i<tareasArray.lenght-1; i++)
     {
         if(i!==0 && i!==tareasArray.lenght)
         {
@@ -81,9 +82,15 @@ exports.addMarketServices = function (listaGenObjServicios,listaGenObjMercados)
           if(actualServicioPID===actualMercadoPID && actualMercadoName===actualServicioMercadoName)
           {
             //console.log("son iguales")
-            console.log(actualMercado,"-",actualServicio)
+            //console.log(actualMercado,"-",actualServicio)
             var mercadoActualAdd = actualMercado.servicio_list;
-            mercadoActualAdd.push(actualServicio)
+
+            var servicioExists;
+            servicioExists = mercadoActualAdd.includes(actualServicio)
+            if(!servicioExists)
+            {
+              mercadoActualAdd.push(actualServicio)
+            }
             nuevaListaMercados=copiaListaMercados
           }
         }
@@ -113,13 +120,32 @@ exports.addEnterpriseMarkets = function (listaGenObjEmpresas, listaGenObjMercado
           {
             //console.log("push!: ",actualEmpresa,"-",actualMercado)
             var empresaActualAdd = actualEmpresa.mercado_list;
-            empresaActualAdd.push(actualMercado)
+
+            var mercadoExists;
+            mercadoExists = empresaActualAdd.includes(actualMercado)
+            if(!mercadoExists)
+            {
+              empresaActualAdd.push(actualMercado)
+            }
             nuevaListaEmpresas=copyEmpresas
           }
         }
       }
       console.log("LE: ",nuevaListaEmpresas)
       return nuevaListaEmpresas;
+}
+
+exports.addEnterpriseDB = function (listaEmpresas)
+{
+  var copyE = listaEmpresas;
+  var k=0;
+  console.log("CE: ",copyE[0])
+  for(k=0;k<copyE.lenght;k++)
+  {
+    var eAct = copyE[k];
+    console.log("eA: ",eAct)
+    Meteor.call("empresas.add",eAct)
+  }
 }
 
 

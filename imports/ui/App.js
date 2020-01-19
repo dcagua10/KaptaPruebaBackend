@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import {Meteor} from "meteor/meteor"
 import {withTracker} from "meteor/react-meteor-data";
 
-// TestImportMongo
-import {Proyectos} from "../api/proyectos.js";
 // Imports Mongo
 import {Empresas} from "../api/empresas.js";
 // Imports Structs
@@ -47,6 +45,9 @@ var listaMercadosDisponibles=[];
 var listaGenObjMercados=[];
 var listaEmpresasDisponibles=[];
 var listaGenObjEmpresas=[];
+
+//IterUtils
+var k = 0;
 
 
 class App extends Component {
@@ -207,7 +208,7 @@ class App extends Component {
           }).then(res=>{
             //console.log("PI: ",listaGenObjServicios)
             //console.log("inicia el otro callback")
-            anotherCallback(projectIdList,listaGenObjServicios, structInfo.addMarketServices, structInfo.addEnterpriseMarkets)
+            anotherCallback(projectIdList,listaGenObjServicios, structInfo.addMarketServices, structInfo.addEnterpriseMarkets, structInfo.addEnterpriseDB)
             
           })
           .catch((error) =>{
@@ -217,7 +218,7 @@ class App extends Component {
       })
     }
 
-    createMarkets(projectIdList, listaGeneralServicios, callback, callback2)
+    createMarkets(projectIdList, listaGeneralServicios, callback, callback2, callback3)
     {
       console.log("createMarkets")
       projectIdList.forEach(id => {
@@ -251,19 +252,13 @@ class App extends Component {
 
             var listaGS = listaGeneralServicios;
             var listaGM = listaGenObjMercados;
-            var listaPM;
+            var listaPM;    
 
             var pListaGM=callback(listaGS,listaGM)
             listaGenObjMercados=pListaGM
             var pListaGE=callback2(listaGenObjEmpresas, listaGenObjMercados)
-            listaGenObjEmpresas = pListaGE
-
-            var k;
-            for (k=0; k<listaGenObjEmpresas;k++)
-            {
-              var eActual = listaGenObjEmpresas[k];
-              Meteor.call("empresas.add", eActual)
-            }
+            listaGenObjEmpresas = pListaGE     
+            callback3(listaGenObjEmpresas)
 
           })
           .catch((error) =>{
@@ -294,13 +289,13 @@ class App extends Component {
 }
 
 App.propTypes ={
-    proyectos: PropTypes.array.isRequired,
+    empresas: PropTypes.array.isRequired,
     user: PropTypes.object
 }
 
 export default AppContainer = withTracker(()=>{
     return {
-        proyectos: Proyectos.find({}).fetch(),
+        empresas: Empresas.find({}).fetch(),
         user: Meteor.user()
     };
 })(App);

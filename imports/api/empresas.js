@@ -11,6 +11,7 @@ if (Meteor.isServer)
 
 Meteor.methods({
     'empresas.add':function(pEmpresa){
+        console.log("Add: ", pEmpresa)
         Empresas.insert(pEmpresa);
     }
 })
