@@ -1,4 +1,6 @@
 import {Meteor} from "meteor/meteor"
+// Imports Mongo
+import {Empresas} from "../api/empresas.js";
 
 //Declaracion de Variables
 var tareasArray=[];
@@ -19,12 +21,12 @@ exports.createServicio = function (localProyectoId,localMercadoIdName,localServi
     var tareasCopy = pTareas;
     tareasArray = tareasCopy.split(",");
     //Print que contiene la lista de tareas
-    console.log("arrayT: ",tareasArray)
+    //console.log("arrayT: ",tareasArray)
 
     var j = 0;
     tareasArray.forEach(element => {
       //console.log(tareasArray.lenght)
-      console.log("E: ",element)
+      //console.log("E: ",element)
       if(j!==0 && j!==tareasArray.lenght-1)
       {
         var lt = nuevoServicio.listaTareas;
@@ -45,7 +47,7 @@ exports.createServicio = function (localProyectoId,localMercadoIdName,localServi
            //nuevoServicio.listaTareas.push(tareasArray[i])
         }
     }*/
-    console.log("ServicioCreado", nuevoServicio)
+    //console.log("ServicioCreado", nuevoServicio)
     return nuevoServicio;
 }
 exports.createMercado = function (localProyectoId,localMercadoName)
@@ -171,11 +173,22 @@ exports.addEnterpriseDB = function (listaEmpresas)
 exports.addEnterpriseDB = function (listaEmpresas)
 {
   var copyE = listaEmpresas;
+  var checkArray=[];
   //console.log("CE: ",copyE)
   copyE.forEach(element => {
       console.log("CE: ",element)
-      Meteor.call("empresas.add",element)
+
+      var booleanListEnterprise;
+      var booleanListEnterprise =copyE.includes(element)
+
+      if(booleanListEnterprise)
+      {
+        checkArray.push(element)
+        Meteor.call("empresas.add",element)
+      }
     });
+    console.log("CA: ",checkArray)
+
 
 }
 
