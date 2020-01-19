@@ -255,7 +255,15 @@ class App extends Component {
 
             var pListaGM=callback(listaGS,listaGM)
             listaGenObjMercados=pListaGM
-            callback2(listaGenObjEmpresas, listaGenObjMercados)
+            var pListaGE=callback2(listaGenObjEmpresas, listaGenObjMercados)
+            listaGenObjEmpresas = pListaGE
+
+            var k;
+            for (k=0; k<listaGenObjEmpresas;k++)
+            {
+              var eActual = listaGenObjEmpresas[k];
+              Meteor.call("empresas.add", eActual)
+            }
 
           })
           .catch((error) =>{
