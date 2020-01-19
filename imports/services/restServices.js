@@ -24,7 +24,7 @@ exports.getProjects = function () {
     "&timestamp="+timestamp+
     "&hash="+hash+endingURL
 
-    console.log("URLFinal",finalURL)
+    //console.log("URLFinal",finalURL)
 
     return fetch(finalURL, {
         method: "GET",
@@ -86,7 +86,7 @@ exports.getWipe = function () {
   "&timestamp="+timestamp+
   "&hash="+hash+endingURL
 
-  console.log("URLFinalWipe",finalURL)
+  //console.log("URLFinalWipe",finalURL)
 
   return fetch(finalURL, {
       method: "GET",
@@ -122,7 +122,7 @@ exports.getTasksByProjectId = function (projectId, assignedId, createdById) {
   "&sort[due_date]=asc"+
    endingURL
 
-  console.log("URLFinalTask",finalURL)
+  //console.log("URLFinalTask",finalURL)
 
   return fetch(finalURL, {
       method: "GET",
