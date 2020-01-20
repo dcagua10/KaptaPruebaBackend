@@ -11,6 +11,9 @@ import structInfo from "../api/structInfo.js"
 import AccountsUIWrapper from "./AccountsUIWrapper.js"
 import Services from "../services/restServices.js"
 
+//UI imports
+import EnterpriseView from "../ui/EnterpriseView.js"
+
 var projectId = [];
 var projectName = [];
 var projectDescription = [];
@@ -273,12 +276,19 @@ class App extends Component {
             <div>
             <h2>Bienvenido a la App de Prueba - Kapta Backend</h2>
             <h3>Inicia sesion para ver el contenido!</h3>
+            <h3>Usuario Activo: </h3>
             <AccountsUIWrapper/>
             
             <div id="content">
             {Meteor.user() ?
-            <div>Estas logueado!</div>:
-            <div>No estas logueado!</div>
+            <div>
+              <div>Estas logueado!</div>
+              <EnterpriseView/>
+            </div>
+            :
+            <div>
+              No estas logueado!, Inicia sesion para consultar los proyectos
+            </div>
             }
             </div>
 

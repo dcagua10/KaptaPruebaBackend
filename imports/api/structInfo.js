@@ -159,35 +159,22 @@ exports.addEnterpriseMarkets = function (listaGenObjEmpresas, listaGenObjMercado
 exports.addEnterpriseDB = function (listaEmpresas)
 {
   var copyE = listaEmpresas;
-  var k=0;
-  //console.log("CE: ",copyE)
-  copyE.forEach(e)
-  for(k=0;k<copyE.lenght;k++)
-  {
-    var eAct = copyE[k];
-    console.log("eA: ",eAct)
-    Meteor.call("empresas.add",eAct)
-  }
-}
-
-exports.addEnterpriseDB = function (listaEmpresas)
-{
-  var copyE = listaEmpresas;
   var checkArray=[];
-  //console.log("CE: ",copyE)
+  //console.log("CE: ",listaEmpresas.lenght)
   copyE.forEach(element => {
       console.log("CE: ",element)
 
       var booleanListEnterprise;
-      var booleanListEnterprise =copyE.includes(element)
+      var booleanListEnterprise = checkArray.includes(element)
 
-      if(booleanListEnterprise)
+      if(!booleanListEnterprise)
       {
         checkArray.push(element)
         Meteor.call("empresas.add",element)
       }
     });
     console.log("CA: ",checkArray)
+    return checkArray;
 
 
 }
