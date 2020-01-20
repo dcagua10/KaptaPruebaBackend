@@ -47,7 +47,7 @@ exports.createServicio = function (localProyectoId,localMercadoIdName,localServi
            //nuevoServicio.listaTareas.push(tareasArray[i])
         }
     }*/
-    //console.log("ServicioCreado", nuevoServicio)
+    console.log("ServicioCreado: ", nuevoServicio)
     return nuevoServicio;
 }
 exports.createMercado = function (localProyectoId,localMercadoName)
@@ -58,6 +58,7 @@ exports.createMercado = function (localProyectoId,localMercadoName)
         mercado_name: localMercadoName,
         servicio_list: []
     }
+    console.log("MercadoCreado: ", nuevoMercado)
     return nuevoMercado;
 }
 
@@ -70,7 +71,7 @@ exports.createEmpresa = function (localProyectoId, localProyectoName, localUserI
     user_id: localUserId,
     mercado_list: [] 
   }
-  //console.log("nueva empresa: ", nuevaEmpresa)
+  console.log("empresaCreada: ", nuevaEmpresa)
   return nuevaEmpresa;
 }
 
@@ -162,7 +163,7 @@ exports.addEnterpriseDB = function (listaEmpresas)
   var checkArray=[];
   //console.log("CE: ",listaEmpresas.lenght)
   copyE.forEach(element => {
-      console.log("CE: ",element)
+      //console.log("CE: ",element)
 
       var booleanListEnterprise;
       var booleanListEnterprise = checkArray.includes(element)
@@ -173,7 +174,7 @@ exports.addEnterpriseDB = function (listaEmpresas)
         Meteor.call("empresas.add",element)
       }
     });
-    console.log("CA: ",checkArray)
+    //console.log("CA: ",checkArray)
     return checkArray;
 
 

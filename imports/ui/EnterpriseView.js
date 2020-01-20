@@ -20,12 +20,12 @@ class EnterpriseView extends React.Component
     renderEmpresas()
     {
         //Aca se llaman las empresas de la DB
-        console.log("EV: ",this.props.empresas)
+        //console.log("EV: ",this.props.empresas)
         var empresasList = this.props.empresas;
 
         return empresasList.map((r,i)=>{
             <div>
-            {console.log("R: ",r)}
+            {/*console.log("R: ",r)*/}
             <p>------------------------------------</p>
             <p>Proyecto!</p>
             <p><strong>{r.proyecto_nombre}:</strong>{r.proyecto_id}</p>
