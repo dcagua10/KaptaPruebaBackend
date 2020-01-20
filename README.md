@@ -54,7 +54,7 @@ NOTA: No es necesario incluir los campos de TOKEN y COOKIE
 * ```cd [Root]/KaptaPruebaBackend```
 * ```meteor mongo```
 
-Nota: Si se desea observar la base de datos con MongoDB Compass es necesario ingresar a Conect>Conect To y añadir en connection string la dirección creada con el comando meteor mongo
+Nota: Si se desea observar la base de datos con MongoDB Compass es necesario ingresar a Connect>Connect To y añadir en connection string la dirección creada con el comando meteor mongo
 * ```EJ: mongodb://127.0.0.1:3001/meteor?gssapiServiceName=mongodb```
 
 
