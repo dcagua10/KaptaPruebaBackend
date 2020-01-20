@@ -281,7 +281,7 @@ class App extends Component {
             
             <div id="content">
             {Meteor.user() ?
-            <div>
+            <div><br/>
               <div>Estas logueado!</div>
               <EnterpriseView/>
             </div>

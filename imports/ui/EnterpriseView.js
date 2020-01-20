@@ -36,11 +36,14 @@ class EnterpriseView extends React.Component
             
         });
     }
+
+    // El render de las empresas es indefinido
     render()
     {
         return(
             <div>
-            <div>Estas son las empresas disponibles</div>
+            <div>Estas son las empresas disponibles</div><br/>
+            <div>NOTA: Para ver el procesamiento de datos se puede observar la consola: (F12)</div>        
             {console.log("RE:",this.renderEmpresas())}
             </div>
         );
